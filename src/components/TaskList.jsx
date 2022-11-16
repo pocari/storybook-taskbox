@@ -1,6 +1,5 @@
 import React from 'react';
 import Task from './Task';
-import PropTypes from 'prop-types';
 import { taskListBoxState } from '../store';
 
 const TaskList = () => {
@@ -58,15 +57,15 @@ const TaskList = () => {
   );
 };
 
-TaskList.propTypes = {
-  loading: PropTypes.bool,
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  onPiTask: PropTypes.func,
-  onArchiveTask: PropTypes.func,
-};
+// TaskList.propTypes = {
+//   loading: PropTypes.bool,
+//   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+//   onPiTask: PropTypes.func,
+//   onArchiveTask: PropTypes.func,
+// };
 
-TaskList.defaultProps = {
-  loading: false,
-};
+// TaskList.defaultProps = {
+//   loading: false,
+// };
 
 export default TaskList;

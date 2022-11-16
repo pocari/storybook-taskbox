@@ -6,11 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 
 ReactDOM.render(
-  <RecoilRoot>
-    <React.StrictMode>
+  <React.StrictMode>
+    <RecoilRoot>
       <App />
-    </React.StrictMode>
-  </RecoilRoot>,
+    </RecoilRoot>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
