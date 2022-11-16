@@ -33,7 +33,7 @@ const TaskList = () => {
     );
   }
 
-  if (tasks.length == 0) {
+  if (tasks.length === 0) {
     return (
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
