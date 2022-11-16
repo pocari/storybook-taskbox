@@ -1,11 +1,14 @@
 import React from 'react';
 import Task from './Task';
 import PropTypes from 'prop-types';
+import { taskListBoxState } from '../store';
 
-const TaskList = ({loading, tasks, onPinTask, onArchiveTask})=> {
+const TaskList = () => {
+  const {tasks, loading} = taskListBoxState.useTaskListBoxValue();
+
   const events = {
-    onPinTask,
-    onArchiveTask,
+    onPinTask: (_taskId) => {},
+    onArchiveTask: (_taskId) => {},
   };
 
   const LoadingRow = (
