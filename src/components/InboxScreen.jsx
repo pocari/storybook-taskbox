@@ -3,8 +3,8 @@ import { taskListBoxState } from "../store";
 import TaskList from "./TaskList";
 
 const InboxScreen = () => {
-
   const { fetchTasks } = taskListBoxState.useFetchTasks();
+
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);

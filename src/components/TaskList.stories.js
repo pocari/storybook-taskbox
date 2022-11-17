@@ -15,11 +15,12 @@ export default {
   component: MockedComponent,
   title: 'TaskList',
   decorators: [(story) => <RecoilRoot>{story()}</RecoilRoot>],
+  excludeStories: /.*mockedTasks$/,
 };
 
 const Template = args => <MockedComponent {...args}/>;
 
-const defaultTasks = [
+export const mockedTasks = [
   { ...TaskStories.Default.args, id: '1', title: 'Task 1' },
   { ...TaskStories.Default.args, id: '2', title: 'Task 2' },
   { ...TaskStories.Default.args, id: '3', title: 'Task 3' },
@@ -30,14 +31,14 @@ const defaultTasks = [
 
 export const Default = Template.bind({});
 Default.args = {
-  tasks: defaultTasks,
+  tasks: mockedTasks,
   loading: false,
 }
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
   tasks: [
-    ...defaultTasks.slice(0, 5),
+    ...mockedTasks.slice(0, 5),
     { ...TaskStories.Default.args, id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
   loading: false,
