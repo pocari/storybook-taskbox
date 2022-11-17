@@ -3,6 +3,7 @@ import { atom, useRecoilCallback, useRecoilValue, useSetRecoilState } from "reco
 const useFetchTasks = () => {
   const fetchTasks = useRecoilCallback(
     ({set}) => async () => {
+      console.log('------------------------fetchTasks');
       set(taskListBoxAtom, {
         tasks: [],
         error: false,
@@ -15,10 +16,9 @@ const useFetchTasks = () => {
           {
             id: String(t.id),
             title: t.title,
-            state: t.completed ? 'TASK_ARCHIVECD' : 'TASK_INBOX',
+            state: t.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
           }
         ));
-        console.log(tasks);
         set(taskListBoxAtom, {
           tasks: tasks,
           error: false,
@@ -40,6 +40,33 @@ const useFetchTasks = () => {
   }
 };
 
+const useUpdateState = () => {
+  const updateState = useRecoilCallback(
+    ({set}) => (taskListBox, taskId, newState) => {
+      const index = taskListBox.tasks.findIndex(e => e.id === taskId)
+      if (index >= 0) {
+        const tasks = taskListBox.tasks;
+        const newTasks = [
+          ...tasks.slice(0, index),
+          {
+            ...tasks[index],
+            state: newState,
+          },
+          ...tasks.slice(index + 1),
+        ];
+        set(taskListBoxAtom, {
+          ...taskListBox,
+          tasks: newTasks,
+        });
+      }
+    }
+  , []) ;
+
+  return {
+    updateState,
+  }
+}
+
 const taskListBoxAtom = atom({
   key: "taskListBox",
   default: {
@@ -52,5 +79,6 @@ export const taskListBoxState = {
   useSetTaskListBox: () => useSetRecoilState(taskListBoxAtom),
   useTaskListBoxValue: () => useRecoilValue(taskListBoxAtom),
   useFetchTasks,
+  useUpdateState,
 }
 

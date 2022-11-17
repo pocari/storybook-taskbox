@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Task from './Task';
 import { taskListBoxState } from '../store';
 
 const TaskList = () => {
-  const {tasks, loading} = taskListBoxState.useTaskListBoxValue();
+  const { updateState } = taskListBoxState.useUpdateState();
+  const taskListBox = taskListBoxState.useTaskListBoxValue();
 
   const events = {
-    onPinTask: (_taskId) => {},
-    onArchiveTask: (_taskId) => {},
+    onPinTask: useCallback((taskId, currentState) => {
+      updateState(taskListBox, taskId, currentState == 'TASK_PINNED' ? 'TASK_INBOX' : 'TASK_PINNED');
+    }, [taskListBox, updateState]),
+
+    onArchiveTask: useCallback((taskId, currentState) => {
+      updateState(taskListBox, taskId, currentState == 'TASK_ARCHIVED' ? 'TASK_INBOX' : 'TASK_ARCHIVED');
+    }, [taskListBox, updateState]),
   };
 
   const LoadingRow = (
@@ -19,7 +25,7 @@ const TaskList = () => {
     </div>
   );
 
-  if (loading) {
+  if (taskListBox.loading) {
     return (
       <div className="list-items" dta-testid="loadng" key={"loading"}>
         {LoadingRow}
@@ -32,7 +38,7 @@ const TaskList = () => {
     );
   }
 
-  if (tasks.length === 0) {
+  if (taskListBox.tasks.length === 0) {
     return (
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
@@ -45,8 +51,8 @@ const TaskList = () => {
   }
 
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === "TASK_PINNED"),
-    ...tasks.filter(t => t.state !== "TASK_PINNED"),
+    ...taskListBox.tasks.filter(t => t.state === "TASK_PINNED"),
+    ...taskListBox.tasks.filter(t => t.state !== "TASK_PINNED"),
   ]
   return (
     <div className="list-items">

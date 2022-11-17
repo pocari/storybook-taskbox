@@ -18,7 +18,7 @@ const Task = ({task: {id, title, state}, onArchiveTask, onPinTask}) => {
         />
         <span
           className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
+          onClick={() => onArchiveTask(id, state)}
         />
       </label>
       <label htmlFor="title" aria-label={title}>
@@ -33,7 +33,7 @@ const Task = ({task: {id, title, state}, onArchiveTask, onPinTask}) => {
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
-          onClick={() => onPinTask(id)}
+          onClick={() => onPinTask(id, state)}
           id={`pinTask-${id}`}
           aria-label={`pinTask-${id}`}
           key={`pinTask-${id}`}
