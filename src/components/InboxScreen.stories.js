@@ -4,10 +4,15 @@ import { rest } from 'msw';
 import { mockedTasks } from './TaskList.stories';
 import { RecoilRoot } from 'recoil';
 import {
-  fireEvent,
+  userEvent,
   within,
   waitFor,
+  waitForElementToBeRemoved,
 } from '@storybook/testing-library';
+
+import {
+  expect
+} from '@storybook/jest';
 
 export default {
   component: InboxScreen,
@@ -33,10 +38,10 @@ Default.parameters = {
 
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+  await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
   await waitFor(async () => {
-    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-    await fireEvent.click(canvas.getByLabelText('archiveTask-2'));
-    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
+    userEvent.click(canvas.getByLabelText('pinTask-1'));
+    userEvent.click(canvas.getByLabelText('pinTask-3'));
   });
 }
 

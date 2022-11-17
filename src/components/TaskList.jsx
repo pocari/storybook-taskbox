@@ -27,7 +27,7 @@ const TaskList = () => {
 
   if (taskListBox.loading) {
     return (
-      <div className="list-items" dta-testid="loadng" key={"loading"}>
+      <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
