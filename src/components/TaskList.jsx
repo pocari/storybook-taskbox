@@ -8,11 +8,11 @@ const TaskList = () => {
 
   const events = {
     onPinTask: useCallback((taskId, currentState) => {
-      updateState(taskListBox, taskId, currentState == 'TASK_PINNED' ? 'TASK_INBOX' : 'TASK_PINNED');
+      updateState(taskListBox, taskId, currentState === 'TASK_PINNED' ? 'TASK_INBOX' : 'TASK_PINNED');
     }, [taskListBox, updateState]),
 
     onArchiveTask: useCallback((taskId, currentState) => {
-      updateState(taskListBox, taskId, currentState == 'TASK_ARCHIVED' ? 'TASK_INBOX' : 'TASK_ARCHIVED');
+      updateState(taskListBox, taskId, currentState === 'TASK_ARCHIVED' ? 'TASK_INBOX' : 'TASK_ARCHIVED');
     }, [taskListBox, updateState]),
   };
 

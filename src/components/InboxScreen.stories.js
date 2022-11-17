@@ -3,6 +3,11 @@ import InboxScreen from './InboxScreen';
 import { rest } from 'msw';
 import { mockedTasks } from './TaskList.stories';
 import { RecoilRoot } from 'recoil';
+import {
+  fireEvent,
+  within,
+  waitFor,
+} from '@storybook/testing-library';
 
 export default {
   component: InboxScreen,
@@ -25,6 +30,15 @@ Default.parameters = {
     ],
   },
 };
+
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await waitFor(async () => {
+    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
+    await fireEvent.click(canvas.getByLabelText('archiveTask-2'));
+    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
+  });
+}
 
 export const Error = Template.bind({});
 Error.parameters = {
