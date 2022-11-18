@@ -28,6 +28,7 @@ const Task = ({task: {id, title, state}, onArchiveTask, onPinTask}) => {
           readOnly={true}
           name="title"
           placeholder="Input Title"
+          style={{ background: 'red' }}
          />
       </label>
       {state !== "TASK_ARCHIVED" && (
